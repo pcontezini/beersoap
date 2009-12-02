@@ -1,0 +1,21 @@
+CC=/usr/bin/g++ -Wall -m32 -ggdb
+INCLUDE=-I. -I/usr/include/libxml2 -I/usr/local/include -I../pdom
+LDFLAGS=-lxml2 -L/usr/local/lib -lcurl -L../pdom -lpdom
+
+OBJECTS=CurlInterface.o BeerSoap.o BeerSoapServiceMethod.o
+
+all: clean beersoap test
+
+%.o: %.cpp
+	$(CC) -c -o $@ $< $(INCLUDE)
+
+clean:
+	rm -rf *.o *.so *.dylib
+	
+beersoap: $(OBJECTS)
+	$(CC) -dynamiclib -o libbeersoap.dylib $^ $(LDFLAGS)
+
+test: $(OBJECTS)
+	@ln -s ../pdom/libpdom.dylib .
+	$(CC) -o test test.cpp $(LDFLAGS) $(INCLUDE) -L. -lbeersoap
+

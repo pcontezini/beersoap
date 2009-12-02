@@ -1,0 +1,20 @@
+CC=/usr/bin/g++
+INCLUDE=-I. -I/usr/include/libxml2 -I/usr/local/include
+LDFLAGS=-lxml2 -L/usr/local/lib -lcurl
+
+OBJECTS=xmldata.o CurlInterface.o BeerSoap.o BeerSoapServiceMethod.o
+
+all: clean beersoap test
+
+%.o: %.cpp
+	$(CC) -c -o $@ $< $(INCLUDE)
+
+clean:
+	rm -rf *.o *.so *.dylib
+	
+beersoap: $(OBJECTS)
+	$(CC) -shared -o libbeersoap.so $^ $(LDFLAGS)
+
+test: $(OBJECTS)
+	$(CC) -o test test.cpp $(LDFLAGS) $(INCLUDE) -L. -lbeersoap
+

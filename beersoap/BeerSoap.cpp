@@ -99,7 +99,7 @@ bool BeerSoapService::soapReceiveMessage() {
 	
 	
 	char *p = (char *)http->getData();
-	BEER_DEBUG("RESPOSTA: %s\n", p);
+//	BEER_DEBUG("RESPOSTA: %s\n", p);
 	if(!p) {
 		return(false);
 	}
@@ -119,6 +119,7 @@ bool BeerSoapService::soapReceiveMessage() {
 			for(unsigned int c = 0; c < bchildren.size(); c++) {
 				BEER_DEBUG("SNAME: %s\n",bchildren[c]->getName().c_str());
 				if(bchildren[c]->getName() == "Fault") {
+					BEER_DEBUG("exception\n");
 					soapProcessException(bchildren[c]);
 					return(true);
 				}

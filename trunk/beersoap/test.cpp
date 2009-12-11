@@ -70,6 +70,7 @@ int main(int argc, char *argv[]) {
 	authenticate->pushParameter("terminal_key",terminalPassword);
 	authenticate->setMethodResponse("AuthenticateResponse");
 	authenticate->registerCallBack(RegisterUserCallBack,NULL);
+//	authenticate->registerExceptionCallback(ExceptionCallBack,NULL);
 	authenticate->run(); 
 
 	}

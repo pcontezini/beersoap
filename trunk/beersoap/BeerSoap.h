@@ -16,9 +16,9 @@
 
 class BeerSoapService : public BeerSoapProtocol {
 private:
-	std::string serviceName;
-	std::string serviceURL;
-	std::string serviceNameSpace;
+	std::string name;
+	std::string URL;
+	std::string nameSpace;
 	
 	DomTree *xmlDocOut;
 	DomElement *rootIn;
@@ -34,12 +34,15 @@ private:
 	
 public:
 	BeerSoapService();
-	void(*exceptionCallback)(void *,DomElement *);	
+	void(*exceptionCallBack)(void *,DomElement *);	
 	CurlInterface *http;
 
-	void setServiceName(std::string serviceName);
-	void setServiceURL(std::string serviceURL);
-	void setServiceNameSpace(std::string serviceNameSpace);
+	void setName(std::string serviceName);
+	std::string getName();
+	void setURL(std::string serviceURL);
+	std::string getURL();
+	void setNameSpace(std::string serviceNameSpace);
+	std::string getNameSpace();
 	
 	BeerSoapServiceMethod *callMethod(std::string method, std::string methodNameSpace);
 //	void registerExceptionCallBack(void(*)(void *, element *), void *customPtr);

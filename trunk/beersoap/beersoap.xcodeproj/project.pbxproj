@@ -20,6 +20,19 @@
 		C22ACEC20EE8521500A70894 /* BeerSoapServiceMethod.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BeerSoapServiceMethod.cpp; sourceTree = "<group>"; };
 		C22ACF160EE85AAA00A70894 /* BeerSoapProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeerSoapProtocol.h; sourceTree = "<group>"; };
 		C290177310C71A6400CF203A /* libpdom.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpdom.dylib; path = /Users/pcontezini/devel/pdom/libpdom.dylib; sourceTree = "<absolute>"; };
+		C29017AD10C733D100CF203A /* BeerSoapLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeerSoapLoader.h; sourceTree = "<group>"; };
+		C29017AE10C733D100CF203A /* BeerSoapLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BeerSoapLoader.cpp; sourceTree = "<group>"; };
+		C29017BB10C73B9A00CF203A /* BeerSoapExceptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeerSoapExceptions.h; sourceTree = "<group>"; };
+		C2A9B23310CB12CA00718C89 /* WSDL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDL.h; sourceTree = "<group>"; };
+		C2A9B23410CB12CA00718C89 /* WSDL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WSDL.cpp; sourceTree = "<group>"; };
+		C2A9B25910CBFEA200718C89 /* WSDLType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WSDLType.cpp; sourceTree = "<group>"; };
+		C2A9B25A10CBFEC700718C89 /* WSDLPart.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WSDLPart.cpp; sourceTree = "<group>"; };
+		C2A9B25B10CBFEE500718C89 /* WSDLMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WSDLMessage.cpp; sourceTree = "<group>"; };
+		C2A9B25C10CBFEFC00718C89 /* WSDLOperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WSDLOperation.cpp; sourceTree = "<group>"; };
+		C2A9B25E10CC007B00718C89 /* WSDLPortType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WSDLPortType.cpp; sourceTree = "<group>"; };
+		C2A9B26F10CC022E00718C89 /* WSDLBinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WSDLBinding.cpp; sourceTree = "<group>"; };
+		C2A9B27110CC052C00718C89 /* WSDLPort.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WSDLPort.cpp; sourceTree = "<group>"; };
+		C2A9B27310CC06AE00718C89 /* WSDLService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WSDLService.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -33,6 +46,7 @@
 		0867D691FE84028FC02AAC07 /* beersoap */ = {
 			isa = PBXGroup;
 			children = (
+				C2A9B25810CBFE7D00718C89 /* WSDL */,
 				C22ACE1E0EE83D7300A70894 /* Tester */,
 				5073E0CA09E734BC00EC74B6 /* Configuration Files */,
 				08FB77ACFE841707C02AAC07 /* Source */,
@@ -60,6 +74,9 @@
 				C22ACEC10EE8521500A70894 /* BeerSoapServiceMethod.h */,
 				C22ACEC20EE8521500A70894 /* BeerSoapServiceMethod.cpp */,
 				C22ACF160EE85AAA00A70894 /* BeerSoapProtocol.h */,
+				C29017AD10C733D100CF203A /* BeerSoapLoader.h */,
+				C29017AE10C733D100CF203A /* BeerSoapLoader.cpp */,
+				C29017BB10C73B9A00CF203A /* BeerSoapExceptions.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -81,6 +98,23 @@
 				C22ACE200EE83D8200A70894 /* test.cpp */,
 			);
 			name = Tester;
+			sourceTree = "<group>";
+		};
+		C2A9B25810CBFE7D00718C89 /* WSDL */ = {
+			isa = PBXGroup;
+			children = (
+				C2A9B23310CB12CA00718C89 /* WSDL.h */,
+				C2A9B23410CB12CA00718C89 /* WSDL.cpp */,
+				C2A9B25910CBFEA200718C89 /* WSDLType.cpp */,
+				C2A9B25A10CBFEC700718C89 /* WSDLPart.cpp */,
+				C2A9B25B10CBFEE500718C89 /* WSDLMessage.cpp */,
+				C2A9B25C10CBFEFC00718C89 /* WSDLOperation.cpp */,
+				C2A9B25E10CC007B00718C89 /* WSDLPortType.cpp */,
+				C2A9B26F10CC022E00718C89 /* WSDLBinding.cpp */,
+				C2A9B27110CC052C00718C89 /* WSDLPort.cpp */,
+				C2A9B27310CC06AE00718C89 /* WSDLService.cpp */,
+			);
+			name = WSDL;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

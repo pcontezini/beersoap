@@ -1,3 +1,5 @@
+#ifndef CURLINTERFACE_H
+#define CURLINTERFACE_H
 /*
  *  CurlInterface.h
  *  beersoap
@@ -27,7 +29,11 @@ private:
 	
 public:
 	CurlInterface();
-	bool DoPost(string host, string postData);
+	~CurlInterface();
+	bool DoPost(std::string host, std::string postData);
+	bool doGet(std::string url);
 	char *getData();
 	void clearData();
 };
+
+#endif

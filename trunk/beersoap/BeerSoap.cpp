@@ -10,6 +10,7 @@
 #include "BeerSoap.h"
 
 BeerSoapService::BeerSoapService() {
+	exceptionCallBack = NULL;
 	xmlDocOut = new DomTree("SOAP-ENV:Envelope","UTF-8","1.0");
 	xmlDocOut->setAttribute("xmlns:SOAP-ENV","http://schemas.xmlsoap.org/soap/envelope/");
 	xmlDocOut->setAttribute("xmlns:soap","http://schemas.xmlsoap.org/wsdl/soap/");
@@ -23,16 +24,28 @@ BeerSoapService::BeerSoapService() {
 	http = new CurlInterface();
 }
 
-void BeerSoapService::setServiceName(string serviceName) {
-	this->serviceName = serviceName;
+void BeerSoapService::setName(string serviceName) {
+	this->name = serviceName;
 }
 
-void BeerSoapService::setServiceURL(string serviceURL) {
-	this->serviceURL = serviceURL;
+std::string BeerSoapService::getName() {
+	return(name);
 }
 
-void BeerSoapService::setServiceNameSpace(string serviceNameSpace) {
-	this->serviceNameSpace = serviceNameSpace;
+void BeerSoapService::setURL(string serviceURL) {
+	this->URL = serviceURL;
+}
+
+std::string BeerSoapService::getURL() {
+	return(URL);
+}
+
+void BeerSoapService::setNameSpace(string serviceNameSpace) {
+	this->nameSpace = serviceNameSpace;
+}
+
+std::string BeerSoapService::getNameSpace() {
+	return(nameSpace);
 }
 
 BeerSoapServiceMethod *BeerSoapService::callMethod(string method, string methodNameSpace) {
@@ -58,14 +71,14 @@ char *BeerSoapService::dump() {
 
 
 bool BeerSoapService::run() {
-	if(!serviceURL.size()) {
+	if(!URL.size()) {
 		return(false);
 	}
 	char *data = dump();
 	
 	BEER_DEBUG("DATA: %s\n",data);
 	
-	if (!http->DoPost(serviceURL.c_str(), data)) {
+	if (!http->DoPost(URL.c_str(), data)) {
 		BEER_DEBUG("erro ao conectar\n");
 		free(data);
 		return(false);
@@ -150,8 +163,8 @@ bool BeerSoapService::soapProcessResponse(DomElement *data, BeerSoapServiceMetho
 	return(true);
 }
 bool BeerSoapService::soapProcessException(DomElement *data) {
-	if(exceptionCallback) {
-		(*exceptionCallback)(exceptionCustomPtr, data);
+	if(exceptionCallBack) {
+		(*exceptionCallBack)(exceptionCustomPtr, data);
 		return(true);
 	}
 	return(false);
@@ -159,6 +172,6 @@ bool BeerSoapService::soapProcessException(DomElement *data) {
 
 void BeerSoapService::registerExceptionCallBack(void(*callback)(void *, DomElement *), void *customPtr) {
 	this->exceptionCustomPtr = customPtr;
-	this->exceptionCallback = callback;
+	this->exceptionCallBack = callback;
 }
 

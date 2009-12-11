@@ -19,7 +19,6 @@ static void *curlRealloc(void *ptr, size_t size) {
 static size_t
 WriteMemoryCallback(void *ptr, size_t size, size_t nmemb, void *data)
 {
-//	printf("passou aqui\n");
 	size_t realsize = size * nmemb;
 	struct MemoryStruct *mem = (struct MemoryStruct *)data;
 	 
@@ -41,17 +40,24 @@ CurlInterface::CurlInterface() {
 	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
 	curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
 	
+	headerList = NULL;
 	headerList = curl_slist_append(headerList, "Content-type: text/xml");
 	curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headerList);	
 }
 
-bool CurlInterface::DoPost(string host, string postData) {
+CurlInterface::~CurlInterface() {
+	if(chunk.memory) {
+		free(chunk.memory);
+	}
+	curl_easy_cleanup(curl);
+	curl_slist_free_all(headerList);
+}
+
+bool CurlInterface::DoPost(std::string host, std::string postData) {
 	curl_easy_setopt(curl, CURLOPT_URL, (unsigned char *) host.c_str());
 	curl_easy_setopt(curl, CURLOPT_POST, 1);
 	curl_easy_setopt(curl, CURLOPT_POSTFIELDS, (unsigned char *) postData.c_str());
-	curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, postData.size());
-
-	
+	curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, postData.size());	
 	res = curl_easy_perform(curl);
 	if(res == 0) {
 		return(true);
@@ -59,6 +65,17 @@ bool CurlInterface::DoPost(string host, string postData) {
 		return(false);
 	}
 }
+
+bool CurlInterface::doGet(std::string url) {
+//	curl_easy_reset(curl);
+	curl_easy_setopt(curl, CURLOPT_URL, (unsigned char *) url.c_str());
+	res = curl_easy_perform(curl);
+	if(res == 0) {
+		return(true);
+	} else {
+		return(false);
+	}
+}	
 
 char *CurlInterface::getData() {
 	return(chunk.memory);

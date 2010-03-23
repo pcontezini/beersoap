@@ -67,12 +67,22 @@ void WSDL::dump() {
 		std::vector<WSDLOperation *> bindingOperations = bindings[i]->getOperations();
 		printf("Binding: %s Operations: %d\n", bindings[i]->getName().c_str(), (int) bindingOperations.size());
 		for(unsigned o = 0; o < bindingOperations.size(); o++) {
+			std::string inputName, outputName, faultName;
+			if(bindingOperations[o]->getInput()) {
+				inputName = bindingOperations[o]->getInput()->getName();
+			}
+			if(bindingOperations[o]->getOutput()) {
+				outputName = bindingOperations[o]->getOutput()->getName();
+			}
+			if(bindingOperations[o]->getFault()) {
+				faultName = bindingOperations[o]->getFault()->getName();
+			}
 			printf("	Operation name: %s Parameter Order: %s Input: %s Output: %s Fault: %s\n",
 				   bindingOperations[o]->getName().c_str(),
 				   bindingOperations[o]->getParameterOrder().c_str(),
-				   bindingOperations[o]->getInput()->getName().c_str(),
-				   bindingOperations[o]->getOutput()->getName().c_str(),
-				   bindingOperations[o]->getFault()->getName().c_str());
+				   inputName.c_str(),
+				   outputName.c_str(),
+				   faultName.c_str());
 		}
 	}
 	

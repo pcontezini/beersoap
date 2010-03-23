@@ -1,4 +1,4 @@
-CC=/usr/bin/g++ -Wall -m32 -ggdb
+CC=/usr/bin/g++ -Wall -m64 -ggdb
 INCLUDE=-I. -I/usr/include/libxml2 -I/usr/local/include -I../pdom
 LDFLAGS=-lxml2 -L/usr/local/lib -lcurl -L../pdom -lpdom
 

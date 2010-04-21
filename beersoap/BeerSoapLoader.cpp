@@ -10,6 +10,8 @@
 #include "BeerSoapLoader.h"
 #include "BeerSoapExceptions.h"
 
+using namespace std;
+
 BeerSoapLoader::BeerSoapLoader(std::string endPointURL) {
 	WSDLData = NULL;
 	interface = new CurlInterface();
@@ -37,7 +39,7 @@ bool BeerSoapLoader::loadWSDL() {
 
 	WSDLData = new WSDL(xmlWSDL);
 	
-	WSDLData->dump();
+//	WSDLData->dump();
 	
 	return(true);
 	
@@ -72,6 +74,37 @@ void BeerSoapLoader::setService(BeerSoapService *service) {
 
 }
 
+std::string BeerSoapLoader::getServiceURL(std::string serviceName) {
+	std::vector<WSDLService *> services = WSDLData->getServices();
+	for(unsigned int i = 0; i < services.size(); i++) {
+		if(services[i]->getName() == serviceName) {
+			if(services[i]->getPorts().size()) {
+				return(services[i]->getPorts()[0]->getLocation());
+			}
+		}
+	}
+	return("");
+}
+
+std::vector<std::string> BeerSoapLoader::listServices() {
+	std::vector<WSDLService *> services = WSDLData->getServices();
+	std::vector<std::string> serviceList;
+	for(unsigned int i = 0; i < services.size(); i++) {
+		serviceList.push_back(services[i]->getName());
+	}
+	return(serviceList);
+}
+
+std::vector<std::string> BeerSoapLoader::listOperations() {
+	std::vector<WSDLOperation *> operations = WSDLData->getOperations();
+	std::vector<std::string> operationList;
+	for(unsigned int i = 0; i < operations.size(); i++) {
+		operationList.push_back(operations[i]->getName());
+	}
+	return(operationList);
+}
+
+
 BeerSoapServiceMethod *BeerSoapLoader::getMethod(std::string name, BeerSoapService *service) {
 	std::vector<WSDLService *> services = WSDLData->getServices();
 	std::vector<WSDLOperation *> operations = WSDLData->getOperations();
@@ -88,6 +121,7 @@ BeerSoapServiceMethod *BeerSoapLoader::getMethod(std::string name, BeerSoapServi
 	return(newMethod);
 }
 
+// aqui deveria pegar os metodos apenas do servico selecionado. mas enfim..
 std::vector<BeerSoapServiceMethod *> BeerSoapLoader::getMethods() {
 	return(methods);
 }

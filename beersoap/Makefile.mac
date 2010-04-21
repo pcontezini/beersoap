@@ -1,5 +1,5 @@
-CC=/usr/bin/g++ -Wall -m64 -ggdb
-INCLUDE=-I. -I/usr/include/libxml2 -I/usr/local/include -I../pdom
+CC=/usr/bin/g++ -Wall -m32 -ggdb
+INCLUDE=-I/opt/local/include -I. -I/usr/include/libxml2 -I/usr/local/include -I../pdom
 LDFLAGS=-lxml2 -L/usr/local/lib -lcurl -L../pdom -lpdom
 
 OBJECTS=WSDL.o WSDLType.o WSDLPart.o WSDLMessage.o WSDLOperation.o WSDLPortType.o WSDLBinding.o WSDLPort.o WSDLService.o \
@@ -15,8 +15,9 @@ clean:
 	@ln -s ../pdom/libpdom.dylib .
 	
 beersoap: $(OBJECTS)
-	$(CC) -dynamiclib -o libbeersoap.dylib $^ $(LDFLAGS)
+	$(CC) -dynamiclib -arch i386 -o libbeersoap.dylib $^ $(LDFLAGS)
 
+#	$(CC) -dynamiclib -arch x86_64 -arch x86 -o libbeersoap.dylib $^ $(LDFLAGS)
 test: $(OBJECTS)
-	$(CC) -o test test.cpp $(LDFLAGS) $(INCLUDE) -L. -lbeersoap
+	$(CC) -m32 -o test test.cpp $(LDFLAGS) $(INCLUDE) -L. -lbeersoap
 

@@ -6,6 +6,8 @@
  *  Copyright 2009 Informant. All rights reserved.
  *
  */
+#ifndef BEERSOAPLOADER_H
+#define BEERSOAPLOADER_H
 #include "DomTree.h"
 #include "BeerSoap.h"
 #include "CurlInterface.h"
@@ -32,6 +34,11 @@ public:
 	
 	BeerSoapService *getService(std::string name);
 	void setService(BeerSoapService *service);
+	std::vector<std::string> listServices();
+	
+	std::string getServiceURL(std::string serviceName);
+	
+	std::vector<std::string> listOperations();
 	
 	BeerSoapServiceMethod *getMethod(std::string name, BeerSoapService *service);
 	std::vector<BeerSoapServiceMethod *> getMethods(); // cria uma copia, pois a original nao deve ser alterada	
@@ -40,3 +47,4 @@ public:
 	
 	
 };
+#endif

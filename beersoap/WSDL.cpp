@@ -130,16 +130,16 @@ void WSDL::parseTypes(DomElement *typesList) {
 			std::vector<DomElement *> schemaChildren = children[i]->getChildren();
 			for(unsigned int s = 0; s < schemaChildren.size(); s++) {
 				if(schemaChildren[s]->getName() == "element") {
-					std::cout << "simple type: " << schemaChildren[s]->getAttribute("name") << std::endl;
+//					std::cout << "simple type: " << schemaChildren[s]->getAttribute("name") << std::endl;
 					WSDLType *newType = parseElement(schemaChildren[s]);
 					types.push_back(newType);
 				}
 				if(schemaChildren[s]->getName() == "complexType") {
-					std::cout << "complex type: " << schemaChildren[s]->getAttribute("name") << std::endl;
+//					std::cout << "complex type: " << schemaChildren[s]->getAttribute("name") << std::endl;
 					WSDLType *type = NULL;
 					for(unsigned int c = 0; c < types.size(); c++) {
 						if(types[c]->getName() == schemaChildren[s]->getAttribute("name")) {
-							std::cout << "ja tem na lista: " << types[c]->getName() << std::endl;
+//							std::cout << "ja tem na lista: " << types[c]->getName() << std::endl;
 							type = types[c];
 						}
 					}
@@ -176,12 +176,12 @@ void WSDL::parseComplexType(DomElement *element, WSDLType *type) {
 		newType = new WSDLType(element->getAttribute("name"));
 	}
 	for(unsigned int i = 0; i < children.size(); i++) {
-		printf("name: %s\n", children[i]->getName().c_str());
+//		printf("name: %s\n", children[i]->getName().c_str());
 		if(children[i]->getName() == "sequence") { // dados sao em sequencia
 			std::vector<DomElement *> sequenceChildren = children[i]->getChildren();
 			for(unsigned int s = 0; s < sequenceChildren.size(); s++) {
 				if(sequenceChildren[s]->getName() == "element") {
-					printf("achou subelemento..\n");
+//					printf("achou subelemento..\n");
 					WSDLType *subType = parseElement(sequenceChildren[s]);
 					newType->pushType(subType);
 				}

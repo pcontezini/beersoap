@@ -11,8 +11,8 @@
 #include "BeerSoapServiceMethod.h"
 #include "CurlInterface.h"
 
-#define BEER_DEBUG printf
-//#define BEER_DEBUG
+//#define BEER_DEBUG printf
+#define BEER_DEBUG
 
 class BeerSoapService : public BeerSoapProtocol {
 private:

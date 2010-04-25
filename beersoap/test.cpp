@@ -34,10 +34,12 @@ int main(int argc, char *argv[]) {
 	authenticate->run();  */
 	BeerSoapLoader *loader;
 	try {
-		loader = new BeerSoapLoader("http://200.195.63.49:8080/service/MobusServer?WSDL");
+		loader = new BeerSoapLoader("http://www.positiva.tv:8080/service/MobusServer?WSDL");
 	} catch (int e) {
 		printf("ERRO!!\n");
 	}
+
+	loader->dump();
 	
 	BeerSoapService *service = loader->getService("MobusServer");
 

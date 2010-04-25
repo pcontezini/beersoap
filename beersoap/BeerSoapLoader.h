@@ -31,6 +31,7 @@ public:
 	~BeerSoapLoader();
 	
 	bool loadWSDL();
+	void dump();
 	
 	BeerSoapService *getService(std::string name);
 	void setService(BeerSoapService *service);
@@ -41,6 +42,7 @@ public:
 	std::vector<std::string> listOperations();
 	
 	BeerSoapServiceMethod *getMethod(std::string name, BeerSoapService *service);
+	std::string getMethodResponse(std::string name, BeerSoapService *service);
 	std::vector<BeerSoapServiceMethod *> getMethods(); // cria uma copia, pois a original nao deve ser alterada	
 	std::vector<std::string> describeMethod(std::string name); // retorna um vector de strings com os nomes dos parametros	
 	std::string getParameterType(std::string method, std::string parameter); // retorna uma string com o tipo do parametro

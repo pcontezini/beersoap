@@ -46,6 +46,12 @@ bool BeerSoapLoader::loadWSDL() {
 		
 }
 
+void BeerSoapLoader::dump() {
+	if(WSDLData) {
+		WSDLData->dump();
+	}
+}
+
 
 BeerSoapLoader::~BeerSoapLoader() {
 	free(interface);
@@ -119,6 +125,22 @@ BeerSoapServiceMethod *BeerSoapLoader::getMethod(std::string name, BeerSoapServi
 		}
 	}
 	return(newMethod);
+}
+
+std::string BeerSoapLoader::getMethodResponse(std::string name, BeerSoapService *service) {
+	std::vector<WSDLOperation *> operations = WSDLData->getOperations();
+	for(unsigned int i = 0; i < operations.size(); i++) {
+		if(operations[i]->getName() == name) {
+			WSDLMessage *output = operations[i]->getOutput();
+			if(output) {
+				std::vector<WSDLPart *> parts = output->getParts();
+				if(parts.size()) {
+					return(parts[0]->getName());
+				}
+			}
+		}
+	}
+	return("");
 }
 
 // aqui deveria pegar os metodos apenas do servico selecionado. mas enfim..
